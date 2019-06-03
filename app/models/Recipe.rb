@@ -28,8 +28,7 @@ class Recipe
 
 
     def users
-        cards = RecipeCard.all.find_all {|card| card.recipe == self}
-        cards.map {|card| card.user }
+        recipe_cards.map {|card| card.user }
     end
 
     def ingredients
@@ -43,5 +42,9 @@ class Recipe
 
     def add_ingredients(new_ingredients)
         new_ingredients.each {|ingredient| RecipeIngredient.new(ingredient, self)}
+    end
+
+    def recipe_cards
+        RecipeCard.all.find_all {|card| card.recipe == self}
     end
 end

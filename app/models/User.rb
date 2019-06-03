@@ -32,16 +32,29 @@ class User
     end
 
     def top_three_recipes
-        cards = recipes.map {|recipe| RecipeCard.all.find {|card| card.recipe == recipe }}
-        cards = cards.sort_by {|card| card.rating }
+
+        # Roxanne's solution
+        cards = self.recipe_cards.sort_by {|card| card.rating }
         cards.reverse!
         cards[0, 3].map {|card| card.recipe }
+
+        # Prince's demonstration
+        # cards = self.recipe_cards.sort_by do |recipe_card|
+        #     recipe_card.rating
+        # end.reverse[0..2]
+        
+        # cards.map {|recipe_card| recipe_card }
+
     end
 
     def most_recent_recipe
-        cards = recipes.map {|recipe| RecipeCard.all.find {|card| card.recipe == recipe }}
-        cards = cards.sort_by {|card| card.date }
+        self.recipe_cards.sort_by {|card| card.date }
         cards.reverse!
         cards.first.recipe
     end
+
+    def recipe_cards
+        recipes.map {|recipe| RecipeCard.all.find {|card| card.recipe == recipe }}
+    end
+
 end
